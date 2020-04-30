@@ -8,13 +8,11 @@ Papa.parse("db.csv", {
     complete: function(results) {
         /*
         Una vez que se haya completado la descarga de nuestro archivo asignamos la variable a los datos obtenidos. 
+        Ojo que esto no ocurriá de inmediato, por lo que si intentas usar "db" antes de que pase esto será una variable nula.
         Esto corresponderá a una lista de n elementos, dónde n corresponde al número de filas en la base de datos.
-        Por ejemplo, podemos aceder a la columna "1960" en la i-ésima fila con db[i]["1960"];
+        Por ejemplo, podemos aceder a la columna "1960" en la i-ésima fila con db[i-1]["1960"];
         */
         db = results.data; 
-
-        // Eliminamos nuestro texto de "Cargando base de datos...".
-        d3.select("p#cargando").remove();
         
         // Creamos una lista a partir de los bases de datos.
         crear_lista();
@@ -28,7 +26,7 @@ function crear_lista() {
     
     /*
     Ahora creamos la lista cuál contendrá los países de nuestra base de datos.
-    Usaremos "vanilla JS" ya que usar D3 para esto sale un tanto enredado.
+    Usaremos "vanilla JS" ya que queda bastante más claro lo que se está haciendo.
     */
     let select = document.createElement("select");
     
@@ -62,12 +60,12 @@ function mostrarDatosPais()
     // Partimos removiendo todo el texto que había antes.
     d3.selectAll("p").remove()
 
-    // 'event.target.value' nos retorna el valor de la opción elegida. En nuestro caso, será la fila de este país en la base de datos.
+    // 'event.target.value' nos retorna el valor de la opción elegida. Por lo que definimos anteriormente, será la fila de este país en la base de datos.
     let fila = event.target.value;
 
     /*
     Mediante el sigueinte for podemos iterar sobre todas las columnas de la fila, obteniendo el nombre de la columna y el valor en esa columna.
-    En este caso, lo agregaremos como texto nomás, pero fácilmente esta parte podría ser el punto de partida para graficar...
+    En este caso, lo agregaremos como texto, pero fácilmente esta parte podría ser el punto de partida para crear un gráfico...
     */
     for (let [columna, valor] of Object.entries(db[fila])) 
         d3.select("body").append("p").text(columna + ": " + valor);
