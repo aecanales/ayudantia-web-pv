@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Ejemplo Compartir Variables</title>
+    </head>
+    <body>
+        <h1>Ejemplo Compartir Variables</h1>
+        <p>Recibí este valor: </p>
+        <p id="variable"></p>
+
+        <!-- Notar que aquí el script tiene que ir después de la definición del body para que se haya creado y podamos editarlo. -->
+        <script>
+            const params = new URLSearchParams(window.location.search)
+            document.getElementById("variable").innerHTML = params.get("miVariable");
+        </script>
+    </body>
+</html>

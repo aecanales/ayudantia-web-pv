@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Ejemplo Compartir Variables</title>
+
+        <script>
+            function cargarPagina() {
+                window.location.href = 'destino.html?miVariable=' + document.getElementById("text").value;
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Ejemplo Compartir Variables</h1>
+        <p>Escribe aquí el valor que deseas compartir: </p>
+        <input type="text" id="text">
+        <button type="button" onclick="cargarPagina()">GO</button> 
+    </body>
+</html>
